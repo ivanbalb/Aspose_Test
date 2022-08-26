@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+	  <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
+	  <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
+	  <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
+	  <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
+	  <PackageReference Include="Serilog" Version="2.11.0" />
+    <PackageReference Include="Serilog.Extensions.Hosting" Version="5.0.1" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="3.3.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Aspose.Test.Counter\Aspose.Test.Counter.csproj" />
+    <ProjectReference Include="..\Aspose.Test.Html\Aspose.Test.Html.csproj" />
+    <ProjectReference Include="..\Aspose.Test.Http\Aspose.Test.Http.csproj" />
+    <ProjectReference Include="..\Aspose.Test.Messaging.RebbitMQ\Aspose.Test.Messaging.RebbitMQ.csproj" />
+    <ProjectReference Include="..\Aspose.Test.Storage.Mongo\Aspose.Test.Storage.Mongo.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,107 @@
+<style>
+  .example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+
+  .full-width {
+    width: 100%;
+  }
+
+  .request-form {
+    justify-content: stretch;
+    height: 200px;
+    background: #808080;
+  }
+</style>
+
+<table style="width:100%;height:100%;">
+  <tr style="height:36px;">
+    <td colspan="2" style="border-bottom:solid;">
+      <form #f="ngForm">
+        <table style="width:100%;">
+          <tr>
+            <td>
+                <input ngModel name="url" required placeholder="Url to download" style="width:100%;" [disabled]="formDisabled"/>
+            </td>
+            <td style="width:64px;">
+              <button mat-raised-button (click)="requestCount(f)" [disabled]="formDisabled">
+                <mat-icon>search</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </table>
+        </form>
+    </td>
+  </tr>
+  <tr>
+    <td style="width:300px;border-right: solid;background: #808080;">
+      <mat-selection-list #jobList multiple="false" style="height:100%;" (selectionChange)="onListSelectionChange($event)">
+        <mat-list-option *ngFor="let job of jobs" value="{{job.id}}" [style]="buildHeaderListStyle(job)">
+          {{job.id}}
+        </mat-list-option>
+      </mat-selection-list>
+    </td>
+    <td>
+      <table *ngIf="selectedJob" style="width:100%;">
+        <tr>
+          <td colspan="2" style="font-size:medium;border-bottom:solid;"><b>{{selectedJob.id}}</b></td>
+        </tr>
+        <tr>
+          <td>
+            <h2>Status : {{selectedJob.status}}</h2>
+            <mat-selection-list role="list" multiple="false">
+              <mat-list-option *ngFor="let message of selectedJob.messages" style="font-size: 12px; height: 16px;" [style]="buildMessageStyle(message)">
+                <span>
+                  {{ message.timestamp | date:"yyyy-MM-dd hh:mm:ss"}}
+                  <b>{{message.type | messagetype}}</b>
+                  {{message.message}}
+                </span>
+              </mat-list-option>
+            </mat-selection-list>
+          </td>
+          <td>
+            <table *ngIf='selectedJob.status == "Done"'>
+              <tr>
+                <td>
+                  <form #f="ngForm">
+                    Results
+                    <input ngModel type="number" name="count" required style="width:64px;" />
+                    <button mat-raised-button (click)="requestResult(selectedJob.id, f.value.count)">
+                      <mat-icon>search</mat-icon>
+                    </button>
+                  </form>
+                </td>
+              </tr>
+            </table>
+            <table *ngIf="results">
+              <tr><td colspan="3" style="background:#f0f0f0;border-bottom:solid;">Two word results</td></tr>
+              <tr *ngFor="let s of results.oneWord">
+                <td style="border:solid">{{s.word}}</td>
+                <td style="border:solid">{{s.count}}</td>
+                <td style="border:solid">{{s.percentage}}</td>
+              </tr>
+            </table>
+            <table *ngIf="results">
+              <tr><td colspan="3" style="background:#f0f0f0;border-bottom:solid;">Two word results</td></tr>
+              <tr *ngFor="let s of results.twoWords">
+                <td style="border:solid">{{s.word}}</td>
+                <td style="border:solid">{{s.count}}</td>
+                <td style="border:solid">{{s.percentage}}</td>
+              </tr>
+            </table>
+            <table *ngIf="results">
+              <tr><td colspan="3" style="background:#f0f0f0;border-bottom:solid;">Three word results</td></tr>
+              <tr *ngFor="let s of results.threeWords">
+                <td style="border:solid">{{s.word}}</td>
+                <td style="border:solid">{{s.count}}</td>
+                <td style="border:solid">{{s.percentage}}</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
